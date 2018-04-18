@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 JS</title>
+    <style>
+      svg{border: 1px dotted blue;  font: 10px sans-serif;}
+    </style>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/colorbrewer.v1.js"></script>
+
+
+  </head>
+
+  <body>
+    
+    <script>
+
+        var height = 400;
+        var width = 800;
+        var radius = Math.min(width, height) / 2;
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+        var color = d3.scaleOrdinal()
+            .range(colorbrewer.Accent[7]);
+
+        var innerRadius = 110;
+        // function for drawing arcs with an inner and outer radius
+        var arc = d3.arc()
+            .outerRadius(radius - 10)
+            // pie chart
+            .innerRadius(innerRadius)
+           // .padAngle(.02);
+
+
+        // create the layout function
+        var pie = d3.pie().value(function (d) {
+            // attribute of the object used for the layout
+                return d.count;
+            });
+
+ 
+
+        var execute = function (data) {
+
+            
+            // apply the layout function to the data
+            var pieData = pie(data);
+            // let's see what pieData contains
+            console.log('Pie Layout applied to data: ');
+            console.log(pieData);
+
+            console.log('Arc Path based on pieData: ');
+            console.log(arc(pieData[0]));
+
+         
+            var g = svg.selectAll(".arc")
+                .data(pieData)
+                .enter()
+                .append("g")
+                .attr("class", "arc");
+
+                g.append("path")
+                .attr("d", arc)
+                .style("fill", (d) => color(d.data.label))
+                .style("stroke", (d) => color(d.data.label))
+            
+            let verticalPadding = 40;
+            let horizontalPadding = 50;
+            let textHeight = 2*(innerRadius - verticalPadding) / pieData.length;
+            let errorMargin = 5;
+
+            svg.selectAll("text")
+            .data(pieData)
+            .enter()
+            .append('text')
+            .text((d)=> d.data.label)
+            .style("font-size", 17)
+            .style("fill", (d,i) => color(d.data.label))
+            .attr("y", (d,i) => textHeight*(i+1) - (innerRadius - verticalPadding))
+            .attr("x", -horizontalPadding/2)
+
+            svg.selectAll("rect")
+            .data(pieData)
+            .enter()
+            .append('rect')
+            .style("fill", (d,i) => color(d.data.label))
+            .attr("width", 15)
+            .attr("height", (d,i) =>  15)
+            .attr("y", (d,i) =>  textHeight*i - (innerRadius - verticalPadding) + errorMargin)
+            .attr("x", (d,i) =>  -horizontalPadding) 
+        };
+        
+        d3.csv("data51.csv", function (error, data) {
+            if (error) throw error;
+           execute(data);
+        });
+
+
+    </script>
+
+  </body>
+</html>

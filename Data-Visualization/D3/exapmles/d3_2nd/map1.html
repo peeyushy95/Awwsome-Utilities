@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <title>D3</title>
+  <style>
+    canvas {
+      border: 1px dotted black;
+    }
+  </style>
+
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+  <div id="content">
+    <canvas width="800" height="400"></canvas>
+  </div>
+
+  <script>
+    var context = d3.select('#content canvas')
+      .node()
+      .getContext('2d');
+
+    var projection = d3.geoOrthographic()
+      .scale(500)
+      .rotate([30, -45]);
+
+    var geoGenerator = d3.geoPath()
+      .projection(projection)
+      .context(context);
+
+    function myupdate(geojson) {
+      context.lineWidth = 0.5;
+      context.strokeStyle = 'lightblue';
+
+      context.beginPath();
+      geoGenerator({
+        type: 'FeatureCollection',
+        features: geojson.features
+      })
+      context.stroke();
+
+      // Graticule
+      var graticule = d3.geoGraticule();
+      context.beginPath();
+      context.strokeStyle = 'lightsalmon';
+      geoGenerator(graticule());
+      context.stroke();
+
+      // London - New York
+      context.beginPath();
+      context.strokeStyle = 'darkred';
+      geoGenerator({
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            [0.1278, 51.5074],
+            [-74.0059, 40.7128]
+          ]
+        }
+      });
+      context.stroke();
+
+      // Circle
+      var circle = d3.geoCircle().center([0.1278, 51.5074]).radius(5)
+      context.beginPath();
+      context.strokeStyle = 'red';
+      geoGenerator(circle());
+      context.stroke();
+    }
+
+
+
+    // REQUEST DATA
+    d3.json(
+      'https://gist.githubusercontent.com/d3indepth/f28e1c3a99ea6d84986f35ac8646fac7/raw/c58cede8dab4673c91a3db702d50f7447b373d98/ne_110m_land.json',
+      function (err, json) {
+        myupdate(json)
+      })
+  </script>
+</body>
+
+</html>

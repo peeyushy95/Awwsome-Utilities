@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .bar {fill: rgb(34, 18, 12); }
+    </style>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+    <h2>Bar Graph</h2>
+    <script>
+        var margin = {
+                top: 20,
+                right: 20,
+                bottom: 30,
+                left: 40
+            },
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        // set the ranges
+        var x = d3.scaleBand()
+            .range([0, width])
+            .padding(0.5);  // helps in adjusting the width of a bar (i.e. band).
+        var y = d3.scaleLinear()
+            .range([height, 0]);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        // get the data
+        d3.csv("sales.csv", function (error, data) {
+            if (error) throw error;
+
+            // format the data
+            data.forEach(function (d) {
+                d.sales = +d.sales;
+            });
+
+            // Scale the range of the data in the domains
+            x.domain(data.map(function (d) {
+                return d.salesperson;
+            }));
+            y.domain([0, d3.max(data, function (d) {
+                return d.sales;
+            })]);
+
+            // append the rectangles for the bar chart
+            svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d) {
+                    return x(d.salesperson);
+                })
+                .attr("width", x.bandwidth())  // read the data calculated: x = d3.scaleBand()
+                .attr("y", function (d) {
+                    return y(d.sales);
+                })
+                .attr("height", function (d) {
+                    return height - y(d.sales);
+                });
+
+            // add the x Axis
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+
+            // add the y Axis
+            svg.append("g")
+                .call(d3.axisLeft(y));
+
+        });
+    </script>
+</body>
+</html>

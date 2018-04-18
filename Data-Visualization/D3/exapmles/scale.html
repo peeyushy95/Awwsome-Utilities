@@ -1,0 +1,78 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css"> 
+
+	.tran {
+		width:100px;
+		height:100px;
+		background:red;
+		transition:width 2s;
+	}
+
+	.tran:hover{
+		width:300px;
+	}
+	
+	.anim{
+		width:100px;
+		height:100px;
+		background:red;
+	}
+	
+	.anim:hover{
+		animation:myfirst 5s;
+	}
+	
+	@keyframes myfirst{
+		from {background:red;}
+		to {background:yellow;}
+	}
+	
+	.infinite{
+		padding: 10px;
+		border: 1px solid;
+		position: absolute;
+		animation:infiniteMove 10s infinite;
+	}
+		
+	@keyframes infiniteMove{
+		0% {
+			top: 0px;
+			left: 0px;
+			
+		}
+        25% {
+			top: 400px;
+			left: 200px;
+			transform: scale(1.5);
+		}
+		50% {
+			top: 600px;
+			left: 300px;
+			transform: scale(2);
+		}
+		75% {
+			top: 400;
+			left: 400px;
+			transform: scale(1.5);			
+		}
+        100% {
+            top: 0px;
+            left: 600;
+            }
+        }
+
+</style>
+</head>
+<body>
+
+
+	
+<div class="infinite">Animate Me</div>
+
+
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>svg </title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <style>
+        svg {border: 1px blue dotted;}
+     </style>
+   
+</head>
+<body>
+
+    <h4>Using SVG: D3 not used.</h4>
+
+    <svg width="800" height="900">
+        <rect x="120" y="200" width="50" height="80"  style="fill:green"> </rect>
+        <rect x="120" y="300" width="50" height="80"  style="fill:yellow" /> 
+        <rect x="120" y="400" width="50" height="80"  style="fill:blue"> </rect>
+        <rect x="120" y="500" width="50" height="80"  style="fill:red" /> 
+    </svg>
+
+    <button onclick='x()'>Remove Data</button> <br/><br/>
+    
+    
+    <script>
+        function x(){
+        d3.selectAll("body svg rect")
+        .attr('transform', function(d,i){
+            return "translate(" + i*100 + "," + 40*i + ")";
+        });
+        }
+    </script>
+</body>
+</html>

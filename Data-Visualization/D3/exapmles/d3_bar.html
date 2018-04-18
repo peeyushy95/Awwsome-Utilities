@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>D3</title>
+  <style>
+        body {
+          font-family: "Helvetica Neue", Helvetica, sans-serif;
+          font-size: 14px;
+          color: #333;
+        }
+        rect { fill: orange; }
+   </style>
+
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+
+</head>
+
+<body>
+  <svg width="700" height="240">
+  	<g id="wrapper" transform="translate(40, 20)">
+  	</g>
+  </svg>
+
+
+  <script>
+    var myData = [
+        {day : 'Mon', value: 10},
+        {day : 'Tue', value: 40},
+        {day : 'Wed', value: 30},
+        {day : 'Thu', value: 60},
+        {day : 'Fri', value: 30}
+    ];
+
+    var bandScale = d3.scaleBand()
+        .domain(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
+        .range([0, 200])
+        .paddingInner(0.1);
+
+    d3.select('#wrapper')
+        .selectAll('rect')
+        .data(myData)
+        .enter()
+        .append('rect')
+        .attr('y', function(d) {
+            return bandScale(d.day);
+        })
+        .attr('height', bandScale.bandwidth())
+        .attr('width', function(d) {
+            return d.value;
+        });
+
+  </script>
+</body>
+</html>

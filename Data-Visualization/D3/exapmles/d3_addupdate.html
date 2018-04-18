@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="description"> 
+    <title>D3</title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <style>
+      div {width: 10em; border: blue dotted 1px;}
+    </style>
+  </head>
+
+  <body>
+    <button onclick='render([10, 20, 30, 40]);'>Add More Data</button>
+    <button onclick='render([20, 30, 50]);'>Update Data</button> 
+    <button onclick='render([5, 15])'>Remove Data</button> <br/><br/>
+    
+    <div><p>100</p></div>
+    
+    <script>
+      
+        var btn_status = 
+        render([10, 20, 30]);  // initial values - so, 3 divs get created.
+                               // next time, these 3 are left untouched.
+    
+        function render(dataToRender) {
+            var selector = d3.select('body')
+                .selectAll('div')
+                .data(dataToRender);
+    
+            var entering = selector.enter();
+            entering
+                .append('div')
+                .text(function(d) { return d; });
+
+            selector.text(function(d) { return d; });  // update
+
+            var exiting = selector.exit();
+            exiting.remove();
+
+        }
+
+    </script>
+
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

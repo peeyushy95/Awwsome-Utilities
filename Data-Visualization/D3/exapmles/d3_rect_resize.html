@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        svg{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+        <div>
+    <label>X</label>
+        <input id="xVal" type="range" min="1" max="500" value="50">
+        <label>Y</label>
+        <input id="yVal" type="range" min="1" max="500" value="50">
+        <label>WIDTH</label>
+        <input id="wVal" type="range" min="1" max="200" value="50">
+        <label>height</label>
+        <input id="hVal" type="range" min="1" max="200" value="50">
+        <label>X-angle</label>
+        <input id="xang" type="range" min="0" max="360" value="50">
+        <label>Y-angle</label>
+        <input id="yang" type="range" min="0" max="360" value="50">
+        </div>
+        </div>
+
+        <svg width="600" height="600">       
+
+        </svg>
+    <script>
+         var x = d3.select('#xVal').on('input', function(d){
+             var val = this.value;
+            d3.select('rect').attr('x', function(){
+                return val;
+            })
+        });
+        var y = d3.select('#yVal').on('input', function(d){
+            var val = this.value;
+            d3.select('rect').attr('y', function(){
+                return val;
+            })
+        });
+        var w = d3.select('#wVal').on('input', function(d){
+            var val = this.value;
+            d3.select('rect').attr('width', function(){
+                return val;
+            })
+        });
+        var h = d3.select('#hVal').on('input', function(d){
+            var val = this.value;
+            d3.select('rect').attr('height', function(){
+                return val;
+            })
+        });
+
+        var xa = d3.select('#xang').on('input', function(d){
+            var val = this.value;
+            d3.select('rect').style('transform', function(){
+                return "skewY("+ val+"deg)";
+            })
+        });
+        var ya = d3.select('#yang').on('input', function(d){
+            var val = this.value;
+            d3.select('rect').style('transform', function(){
+                return "rotate("+val+"deg)";
+            })
+        });
+
+        d3.selectAll('svg').selectAll('rect').data([{
+            "x": 50, "y": 50, "h":100,"w": 50
+        }]).enter().append('rect').attr('x', function(d){
+            return d.x;
+        }).attr('y', function(d){
+            return d.y;
+        }).attr('width', function(d){
+            return d.w;
+        })
+        .attr('height', function(d){
+            return d.h;
+        })
+       
+    </script>
+</body>
+</html>

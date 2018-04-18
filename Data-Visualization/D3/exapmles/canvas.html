@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Image to use:</p>
+<img id="scream" width="50" height="50" src="a.png" alt="The Scream">
+
+<p>Canvas:</p>
+<canvas id="myCanvas" width="1000" height="1097" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+window.onload = function() {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("scream");
+   
+     
+     setInterval(function(){
+
+        var x = (Math.random()*1000)%700;
+        var y = (Math.random()*1000)%700;
+       z=  ctx.drawImage(img,x,y);
+
+       
+     }, 180);
+
+
+      setInterval(function(){
+        ctx.fillStyle = 'rgba(0,0,0,.1)';
+        ctx.fillRect(0, 0, 1000, 1000);
+        }, 70);
+
+
+     
+     
+}
+</script>
+
+<p><strong>Note:</strong> The canvas tag is not supported in Internet 
+Explorer 8 and earlier versions.</p>
+
+</body>
+</html>

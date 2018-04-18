@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+    <style>
+    .highlight{
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <svg height=400 width=600></svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
+    
+    <script>
+    var data = [0, 2, 3, 5, 7.5, 9, 10];
+
+    var scale = 
+            d3.scaleLinear()
+            .domain(d3.extent(data))
+            .range([20, 590]);
+        
+    var selector = d3.select('svg').selectAll('circle').data(data);
+    var entering = selector.enter();
+    
+    entering
+            .append('circle')
+            .attr("r", 10)
+            .attr("cy", 40)
+            .attr("cx", function(d){
+                return scale(d);
+            })
+
+        
+    entering.append('text')
+            .text(function(d){
+                return d;
+            })
+            .attr("text-anchor", "middle")
+            .attr("y", 20)
+            .attr("fill", "green")
+            .attr("x", function(d){
+                return scale(d);
+            });
+
+    </script>
+
+</body>
+</html>

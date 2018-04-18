@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="description"> 
+    <title>D3</title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <style>
+      div {width: 10em; border: blue dotted 1px;}
+    </style>
+  </head>
+
+  <body>
+    <section>D3</section>
+
+    <script>
+      d3.select('section')
+        .append('h1')
+        .text('Using D3js');
+    </script>
+
+
+
+<div id='div1'>Angular</div>
+<div id='div2'>D3</div>
+<div id='div3'>JQuery</div>
+<div id='div4'>JSP</div>
+<script>
+    let selector_div = d3.select('body')
+                      .selectAll('div')
+                      .data([10, 20, 30]); // has pre-existing div tags.
+
+
+// dynamic addition of dom nodes.
+    var selector_p = d3.select('body')
+                      .selectAll('p')
+                      .data([101, 201, 301]);
+
+    console.log(selector_p);               
+    var entering_p = selector_p.enter();
+
+
+    entering_p.append('p')
+            .text(function(d) { return d; });
+</script>
+
+
+  </body>
+</html>

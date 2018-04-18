@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="description"> 
+    <title>D3</title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <style>
+      div {width: 10em; border: blue dotted 1px;}
+    </style>
+  </head>
+
+  <body>
+    <section>D3</section>
+
+    <script>
+      d3.select('section')
+        .append('h1')
+        .text('Using D3js');
+    </script>
+
+
+
+<div id='div1'>Angular</div>
+<div id='div2'>D3</div>
+<div id='div3'>JQuery</div>
+<div id='div4'>JSP</div>
+<script>
+    d3.selectAll("div")
+      .style('background-color', function (d, i) {
+           return (i % 2 === 0) ? "yellow" : "orange";
+      })
+      .style('width', function(d, i) {
+        return (60 + 40 * i) + "px";
+        })  ;
+</script>
+
+
+  </body>
+</html>

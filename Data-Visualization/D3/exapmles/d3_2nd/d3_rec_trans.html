@@ -1,0 +1,58 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description">
+  <title>D3</title>
+  <script src="http://d3js.org/d3.v4.min.js" ></script>
+  <style>
+    html {
+      background: #eff;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>D3</h2>
+  <div class="mybox"></div>
+
+
+  <script>
+    var w = 2000,
+      h = 2000;
+
+    var mysvg = d3.select(".mybox")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+    var rect = mysvg.append("rect")
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("fill", "blue");
+
+    rect.transition()
+      .duration(100)
+      .delay(2000)
+      .attr("width", 200)
+      .attr("height", 200)
+      .attr("transform", "translate(200,0)")
+      .transition()
+      .duration(100)
+      .attr("transform", "translate(200,100) scale(10)") //animated the transition
+      .on("start", function () {
+        d3.select(this)
+          .attr("fill", "orange")
+          .attr("rx", 6)
+          .attr("ry", 6);
+      });
+  </script>
+
+
+
+</body>
+
+</html>

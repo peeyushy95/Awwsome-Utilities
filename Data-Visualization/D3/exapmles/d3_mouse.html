@@ -1,0 +1,62 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="description"> 
+    <title>D3</title>
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <style>
+      div {width: 10em; border: blue dotted 1px;}
+    </style>
+  </head>
+
+  <body>
+    <section>D3</section>
+
+    <script>
+      d3.select('section')
+        .append('h1')
+        .text('Using D3js');
+    </script>
+
+    <section>
+        <h2 id="click-me"> Click this line. </h2>
+        <p class="hover-me"> Hover on this line.  </p>
+        <p class="hover-me"> Hover on this too. </p>
+    </section>
+
+    <script>
+        var clickMe = document.getElementById('click-me');
+
+        clickMe.onclick = function() {
+            if (this.style.backgroundColor) {
+                this.style.backgroundColor = '';
+            } else {
+                this.style.backgroundColor = 'darkorange';
+            }
+        };
+
+        //----------- D3 Selection API  ------------------------------------
+
+        d3.selectAll('.hover-me')
+            .on('mouseover', function() {this.style.backgroundColor = 'cyan'; })
+            .on('mouseleave', function() { this.style.backgroundColor = ''; });
+
+    </script>
+
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

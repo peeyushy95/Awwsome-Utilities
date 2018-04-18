@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fn </title>
+</head>
+
+<body>
+<script>
+    
+
+
+// global functions
+function foo() {
+    console.log('global foo');
+}
+function bar() {
+    console.log('global bar');
+}
+
+
+//  using these functions.
+function myfunc() {
+
+
+    foo(); 
+    bar();  
+
+    function bar() {
+        console.log('local foo');
+    }
+
+    function bar() {
+        console.log('local foo1');
+    }
+
+    var bar = function () {
+        console.log('local bar');
+    };
+
+
+    
+
+  }
+
+
+   myfunc();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>IIFE</title>
+
+<style>
+    div{
+        outline:  0.1em dashed blue ;
+        width: 18em;
+        height: 2em;
+        margin: 1em ;
+        text-align: center;
+        tex
+    }
+
+    div:hover {background-color: cyan;}
+</style>
+
+
+</head>
+
+<body>
+<div>item no. : A</div>
+<div>item no. : B</div>
+<div>item no. : D</div>
+<div>item no. : G</div>
+<div>item no. : C</div>
+<script>
+    
+    var myElements = document.getElementsByTagName('div');
+   
+    // for (var i = 0; i < 5; ++i) {
+    //     (function(i){
+    //         myElements[i].onclick = function() {
+    //             alert( 'Clicked on: ' + i );
+    //         };
+    //     })(i);
+       
+    
+
+    for (var i = 0; i < 5; ++i) {
+            myElements[i].onclick = function() {
+                alert( 'Clicked on: ' + i );
+            };
+        }
+       
+    
+
+
+  
+
+
+</script>
+</body>
+</html>
